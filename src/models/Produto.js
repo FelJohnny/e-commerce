@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       Produto.belongsTo(models.Usuario,{
-        foreignKey:'id'
+        foreignKey:'usuario_id',
+        as:'usuario_produto'
       })
     }
   }
@@ -19,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     usuario_id: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Produto',
+    modelName:'Produto',
+    tableName:'produtos'
   });
   return Produto;
 };

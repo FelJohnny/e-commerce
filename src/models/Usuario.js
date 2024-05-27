@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         as:'rule-references'
       });
       Usuario.hasMany(models.Produto,{
-        foreignKey:'usuario_id'
+        foreignKey:'id',
       })
     }
   }
@@ -23,7 +23,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Usuario',
-    tableName:'usuarios'
+    tableName:'usuarios',
+    defaultScope: {
+      attributes: {
+        exclude: ['senha']
+      }
+    }
   });
   return Usuario;
 };

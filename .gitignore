@@ -1,2 +1,6 @@
 /node_modules
 .env
+/public/uploads/images/*.jpg
+/public/uploads/images/*.png
+/public/uploads/images/*.jpeg
+/public/uploads/images/*.webp
