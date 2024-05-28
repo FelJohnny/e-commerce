@@ -8,6 +8,15 @@ class Usuario_Services extends Services{
 
     async pegaTodosProdutosPorPage_Services(ItenStarted,limit) {
         const listaServicos = await model.Produto.findAll({
+          attributes:[
+            'id',
+            'nome',
+            'preco',
+            'status',
+            'capa_produto',
+            [model.sequelize.fn('CONCAT',process.env.URL_ADM + '/public/uploads/images/',model.sequelize.col('capa_produto')),'url_img_produto']
+
+          ],
           include: [{
             model: model.Usuario,
             as:'usuario_produto',
