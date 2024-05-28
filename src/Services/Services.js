@@ -18,7 +18,7 @@ class Services{
         return model[this.nomeModel].findByPk(id);
     }
 
-    async pegaRegistroPorDado(dado){
+    async pegaRegistroPorEmail(dado){
         const retorno = await model[this.nomeModel].findOne({where: {email: dado}})
         if(retorno === null){
             console.log('registro não encontrado na base de dados');
