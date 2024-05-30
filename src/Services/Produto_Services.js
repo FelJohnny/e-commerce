@@ -3,7 +3,7 @@ const model = require('../models/index.js')
 
 class Usuario_Services extends Services{
     constructor(){
-        super('produtos')
+        super('Produto')
     }
 
     async pegaTodosProdutosPorPage_Services(ItenStarted,limit) {
@@ -35,7 +35,7 @@ class Usuario_Services extends Services{
             console.log('Registros encontrados na base de dados.');
             return { retorno: pedidosComItens, error: false };
         }
-      }
+    }
 }
 
 module.exports = Usuario_Services;

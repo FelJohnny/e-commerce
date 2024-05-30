@@ -4,6 +4,7 @@ class Services{
         constructor(nomeModel){
             this.nomeModel = nomeModel;
         }
+
     //-------------CREATE-------------//
     async criaRegistro(dadosDoRegistro) {
         return model[this.nomeModel].create(dadosDoRegistro);
@@ -44,7 +45,12 @@ class Services{
     }
     //-----------DELETE--------------//
     async excluiRegistro(id) {
-        return model[this.nomeModel].destroy({ where: { id: id } });
+        try {
+            const registro = await model[this.nomeModel].destroy({ where: { id: id } });
+            return registro
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
 
