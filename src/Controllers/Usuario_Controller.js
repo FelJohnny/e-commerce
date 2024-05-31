@@ -57,7 +57,7 @@ class Usuario_Controller extends Controller{
           const isTrue = await this.allowNull(req, res);
           if(isTrue.status){
             //checar se o usuario existe
-            const userExist = await this.propsServices.pegaRegistroPorDado(email)
+            const userExist = await this.propsServices.pegaRegistroPorEmail(email)
             if(userExist.status){
               return res.status(422).json({
                 message:"por favor, utilize outro e-mail!",
