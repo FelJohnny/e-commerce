@@ -123,6 +123,37 @@ class Produto_Controller extends Controller {
         return res.status(500).json({ message: `erro ao buscar registro, mensagem do erro: ${e}` });
   }
   }
+
+  async PegaProdutoPorUsuarioId(req,res){
+    try {
+      const {id} = req.params
+      const listaRegistros = await model.Usuario.findByPk(id,{
+        include:[{
+          model: model.Produto, as:'produtos',
+          attributes:[
+            'id',
+            'nome',
+            'preco',
+            'status',
+            'capa_produto',
+            [model.sequelize.fn('CONCAT',process.env.URL_ADM + '/public/uploads/images/',model.sequelize.col('capa_produto')),'url_img_produto'],
+            'createdAt',
+            'updatedAt',
+          ]
+        }],
+        attributes:[]
+      });
+
+      if(listaRegistros === null){
+        return res.status(500).json({ message: `o registro ${id} não foi encontrado`,error:true});
+      }else{
+        return res.status(200).json(listaRegistros)
+      }
+    }catch (e) {
+      console.log(e);
+      return res.status(500).json({ message: `erro ao buscar registro, mensagem do erro: ${e}` });
+    }
+  }
 }
 
 module.exports = Produto_Controller;

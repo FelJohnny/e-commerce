@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
         as:'rule-references'
       });
       Usuario.hasMany(models.Produto,{
-        foreignKey:'id',
+        foreignKey:'usuario_id',
+        as:'produtos'
       })
     }
   }
