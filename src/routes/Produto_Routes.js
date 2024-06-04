@@ -12,7 +12,7 @@ route.post("/api/produto", checkTokenLogin, uploadImg.single("img_produto"), (re
 route.get("/api/produto", (req, res) => produto_controller.pegaTodosProdutosPorPage_Controller(req, res));
 route.get('/api/produto/usuario/:id', checkTokenLogin,(req, res) => {produto_controller.PegaProdutoPorUsuarioId(req, res)});
 route.get("/api/produto/:id", checkTokenLogin,(req, res) => produto_controller.pegaProdutosPorId_Controller(req, res));
-route.put('/api/produto/:id', checkTokenLogin,(req, res) => produto_controller.atulizaDadoController(req, res));
+route.put('/api/produto/:id', checkTokenLogin, uploadImg.single("img_produto"),(req, res) => produto_controller.atulizaProduto_Controller(req, res));
 route.delete('/api/produto/:id', checkTokenLogin,(req, res) => produto_controller.excluiRegistroController(req, res));
 
 

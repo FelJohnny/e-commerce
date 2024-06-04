@@ -72,7 +72,7 @@ class Produto_Controller extends Controller {
           //PAGINACAO
           const { page = 1 } = req.query;
           //limite de registros em cada pagina
-          const limit = 10;
+          const limit = 9;
           var lastPage = 1;
     
           //consultando quantidade de pedidos encontrados por codcli
@@ -152,6 +152,31 @@ class Produto_Controller extends Controller {
     }catch (e) {
       console.log(e);
       return res.status(500).json({ message: `erro ao buscar registro, mensagem do erro: ${e}` });
+    }
+  }
+
+  async atulizaProduto_Controller(req, res) {
+    const { id } = req.params;
+    const dadosAtualizados = req.body;
+    try {
+      const umRegistro = await this.propsServices.pegaUmRegistroPorId(Number(id));
+      if(umRegistro == null){
+        return res.status(400).json({message:`não foi possivel encontrar o registro: ${id}`,resposta:umRegistro});
+      }
+      const bodyOk = Object.getOwnPropertyNames(dadosAtualizados).every((campo) => {
+        return Object.values(umRegistro._options.attributes).includes(campo);
+      });
+
+      if(bodyOk){
+        console.log(bodyOk);
+        const foiAtulizado = await this.propsServices.atualizaProduto_Services(dadosAtualizados,Number(id)); 
+        return res.status(200).json({ message: `registro atualizado`, reg:umRegistro});
+      }else{
+        return res.status(400).json({ message: `campos digitados não conferem`});
+      }
+
+    } catch (e) {
+      return res.status(500).json(e.message);
     }
   }
 }

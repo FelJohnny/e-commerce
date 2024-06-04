@@ -84,6 +84,7 @@ class Controller {
       });
 
       if(bodyOk){
+        console.log(bodyOk);
         const foiAtulizado = await this.propsServices.atualizaDado(dadosAtualizados,Number(id)); 
         return res.status(200).json({ message: `registro atualizado`, reg:umRegistro});
       }else{
