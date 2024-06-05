@@ -109,8 +109,25 @@ class Produto_Controller extends Controller {
   async pegaProdutosPorId_Controller(req,res){
     try {
       const {id} = req.params
-      const listaRegistros = await model.Usuario.findByPk(id,{
-        include:[{model: model.Produto}]
+      const listaRegistros = await model.Produto.findByPk(id,{
+        attributes:[
+          'id',
+          'nome',
+          'preco',
+          'status',
+          'capa_produto',
+          [model.sequelize.fn('CONCAT',process.env.URL_ADM + '/public/uploads/images/',model.sequelize.col('capa_produto')),'url_img_produto'],
+          'createdAt',
+          'updatedAt',
+        ],
+        include:[{
+          model: model.Usuario,
+          as: 'usuario_produto',
+          attributes:[
+            'id',
+            'nome_completo',
+          ]
+        }]
       });
 
       if(listaRegistros === null){
