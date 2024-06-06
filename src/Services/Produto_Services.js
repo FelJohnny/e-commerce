@@ -38,11 +38,16 @@ class Usuario_Services extends Services{
     }
 
     async atualizaProduto_Services(dadosAtualizados, id){
-      const ListaDeRegistrosAtualizado = await model[this.nomeModel].update(dadosAtualizados,{where:{id:id}});
-      if(ListaDeRegistrosAtualizado === 0){
-          return false;
+      const produto = await model[this.nomeModel].findByPk(id);
+      if (!produto) {
+        return false;
       }else{
-          return true
+        const ListaDeRegistrosAtualizado = await model[this.nomeModel].update(dadosAtualizados,{where:{id:id}});
+        if(ListaDeRegistrosAtualizado === 0){
+          return false;
+        }else{
+          return true;
+        }
       }
   }
 }
