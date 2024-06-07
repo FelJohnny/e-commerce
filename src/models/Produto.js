@@ -9,7 +9,15 @@ module.exports = (sequelize, DataTypes) => {
       Produto.belongsTo(models.Usuario,{
         foreignKey:'usuario_id',
         as:'usuario_produto'
-      })
+      });
+      
+      Produto.belongsToMany(models.Pedido, {
+        through: 'ItensPedido',
+        foreignKey: 'produto_id',
+        otherKey: 'pedido_id',
+        as: 'pedidos'
+      });
+
     }
   }
   Produto.init({
