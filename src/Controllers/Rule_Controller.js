@@ -1,5 +1,5 @@
 const Controller = require('./Controller.js');
-const RuleServices = require('../services/Rule_Services.js');
+const RuleServices = require('../Services/Rule_Services.js');
 
 const ruleServices = new RuleServices();
 const camposObrigatorios = ['nome']
